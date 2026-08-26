@@ -1,0 +1,1174 @@
+<title>Kickstart Manifesto Duplication Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --ground:   #ECEEF1;
+    --surface:  #F8F9FB;
+    --sunk:     #E2E6EA;
+    --ink:      #16202B;
+    --muted:    #5D6C7C;
+    --faint:    #8493A2;
+    --rule:     #D2D8DF;
+    --accent:   #0D6E6B;
+    --accent-soft: #0d6e6b1f;
+    --clay:     #A94B29;
+    --clay-soft:#a94b291a;
+    --amber:    #855D0C;
+    --amber-soft:#855d0c1a;
+    --shadow:   0 1px 0 #1620200a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #0E151D;
+      --surface:  #161F29;
+      --sunk:     #1B2631;
+      --ink:      #DFE6EC;
+      --muted:    #92A3B2;
+      --faint:    #6B7C8B;
+      --rule:     #27323E;
+      --accent:   #47AFA6;
+      --accent-soft: #47afa622;
+      --clay:     #DE8A63;
+      --clay-soft:#de8a6322;
+      --amber:    #C7A251;
+      --amber-soft:#c7a25122;
+      --shadow:   none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #0E151D;
+    --surface:  #161F29;
+    --sunk:     #1B2631;
+    --ink:      #DFE6EC;
+    --muted:    #92A3B2;
+    --faint:    #6B7C8B;
+    --rule:     #27323E;
+    --accent:   #47AFA6;
+    --accent-soft: #47afa622;
+    --clay:     #DE8A63;
+    --clay-soft:#de8a6322;
+    --amber:    #C7A251;
+    --amber-soft:#c7a25122;
+    --shadow:   none;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 68px 0 22px;
+    margin-bottom: 34px;
+  }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 20px;
+  }
+  h1 {
+    font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.1rem);
+    line-height: 0.98;
+    letter-spacing: -0.033em;
+    text-wrap: balance;
+    margin: 0 0 22px;
+  }
+  .standfirst {
+    font-size: 1.19rem;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0 0 26px;
+  }
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 26px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    color: var(--faint);
+  }
+  .meta b { color: var(--muted); font-weight: 500; }
+
+  /* ---------- summary tiles ---------- */
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 60px;
+  }
+  .tile { background: var(--surface); padding: 20px 20px 18px; }
+  .tile .n {
+    font-family: Archivo, sans-serif;
+    font-weight: 800;
+    font-size: 2.25rem;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    display: block;
+    margin-bottom: 9px;
+  }
+  .tile .n.hi { color: var(--clay); }
+  .tile .n.ac { color: var(--accent); }
+  .tile .l {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+    display: block;
+  }
+
+  /* ---------- section ---------- */
+
+  section { margin-bottom: 62px; }
+  .sechead {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 9px;
+    margin-bottom: 8px;
+  }
+  .sechead h2 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: -0.015em;
+    margin: 0;
+    flex: 1;
+  }
+  .sechead .count {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    white-space: nowrap;
+  }
+  .secnote {
+    color: var(--muted);
+    font-size: 0.96rem;
+    max-width: 66ch;
+    margin: 0 0 4px;
+    padding: 10px 0 14px;
+  }
+
+  /* ---------- findings ---------- */
+
+  .finding {
+    display: grid;
+    grid-template-columns: 116px 1fr;
+    gap: 0 24px;
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+  }
+  .gutter { padding-top: 2px; }
+  .metric {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 1.02rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--clay);
+    letter-spacing: -0.01em;
+    display: block;
+    line-height: 1.25;
+  }
+  .metric.mild { color: var(--amber); }
+  .metric.info { color: var(--accent); }
+  .metric-sub {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: block;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+  .body h3 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 1.03rem;
+    letter-spacing: -0.008em;
+    margin: 0 0 7px;
+    text-wrap: balance;
+  }
+  .body p { margin: 0 0 9px; color: var(--muted); font-size: 0.99rem; }
+  .body p:last-child { margin-bottom: 0; }
+  .body .fix {
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: 12px;
+    margin-top: 11px;
+    font-size: 0.96rem;
+  }
+  .body .fix b {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+
+  code, .path {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.83em;
+    background: var(--sunk);
+    border-radius: 2px;
+    padding: 1.5px 5px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .paths {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 9px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .paths li {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    background: var(--sunk);
+    color: var(--muted);
+    padding: 3px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  pre {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    background: var(--sunk);
+    border-left: 2px solid var(--rule);
+    padding: 12px 14px;
+    margin: 11px 0 0;
+    overflow-x: auto;
+    color: var(--ink);
+  }
+  pre .dim { color: var(--faint); }
+
+  /* ---------- closing ---------- */
+
+  .plan {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 28px 30px 26px;
+    margin-top: 8px;
+  }
+  .plan h2 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 6px;
+  }
+  .plan > p { color: var(--muted); margin: 0 0 18px; max-width: 64ch; }
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .steps li { background: var(--surface); padding: 14px 16px; display: grid; grid-template-columns: 92px 1fr; gap: 18px; align-items: baseline; }
+  .steps .eff {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .steps .what { font-size: 0.98rem; }
+  .steps .what small { display: block; color: var(--faint); font-size: 0.85rem; margin-top: 2px; }
+
+  footer {
+    margin-top: 54px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--faint);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 660px) {
+    .finding { grid-template-columns: 1fr; gap: 10px; }
+    .gutter { display: flex; align-items: baseline; gap: 10px; }
+    .metric-sub { margin-top: 0; }
+    .steps li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Code audit · ortira/kickstart-manifesto</p>
+    <h1>Every duplication in the manifesto site</h1>
+    <p class="standfirst">
+      A full pass over all 145 files. Nothing is byte-for-byte copied — no two files share a hash.
+      The duplication here is <strong>structural</strong>: a vendored component library almost none
+      of which is used, one animation block pasted nine times, one access rule written into the
+      database three different ways, and a set of facts about Kickstart that are typed out in four
+      places and no longer agree with each other.
+    </p>
+    <div class="meta">
+      <span><b>Stack</b> Vite · React 18 · TS · Tailwind · shadcn/ui · Supabase</span>
+      <span><b>Source</b> 6,539 LOC across src/</span>
+      <span><b>Findings</b> 34</span>
+    </div>
+  </header>
+
+  <div class="tiles">
+    <div class="tile">
+      <span class="n hi">64%</span>
+      <span class="l">of src/ is<br>never reached</span>
+    </div>
+    <div class="tile">
+      <span class="n hi">45<span style="font-size:1.3rem">/49</span></span>
+      <span class="l">shadcn files<br>with no importer</span>
+    </div>
+    <div class="tile">
+      <span class="n">37<span style="font-size:1.3rem">/51</span></span>
+      <span class="l">runtime deps<br>nothing imports</span>
+    </div>
+    <div class="tile">
+      <span class="n ac">3</span>
+      <span class="l">lockfiles in<br>one repo</span>
+    </div>
+    <div class="tile">
+      <span class="n">×9</span>
+      <span class="l">copies of the<br>same motion block</span>
+    </div>
+  </div>
+
+  <!-- ============ 1. DEAD WEIGHT ============ -->
+  <section>
+    <div class="sechead">
+      <h2>Dead weight shipped with the repo</h2>
+      <span class="count">10 findings</span>
+    </div>
+    <p class="secnote">
+      This is the single largest item. The project was scaffolded from a full shadcn/ui install and
+      the unused 92% of it was never removed, which also drags in three quarters of the dependency list.
+    </p>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">3,764 LOC</span>
+        <span class="metric-sub">45 files</span>
+      </div>
+      <div class="body">
+        <h3>45 of the 49 shadcn/ui components have no importer anywhere in the codebase</h3>
+        <p>
+          Only <code>tooltip</code>, <code>toast</code>, <code>toaster</code> and <code>sonner</code>
+          are referenced outside <code>src/components/ui/</code> — and all four are referenced only by
+          <code>App.tsx</code>, which mounts them without ever using them (see next two findings).
+          Everything else — accordion, calendar, carousel, chart, command, dialog, form, sidebar,
+          table, select, and 35 more — is unreachable code.
+        </p>
+        <p class="fix"><b>Fix</b>Delete every file in <code>src/components/ui/</code> that nothing imports. Re-add individual components with the shadcn CLI if and when a page actually needs one.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×2</span>
+        <span class="metric-sub">both unused</span>
+      </div>
+      <div class="body">
+        <h3>Two complete toast systems are mounted, and no code raises a toast</h3>
+        <p>
+          <code>App.tsx</code> renders both <code>&lt;Toaster /&gt;</code> (the Radix stack) and
+          <code>&lt;Sonner /&gt;</code>. They are two competing implementations of the same feature.
+          Grepping the whole of <code>src/</code> outside the toast files themselves returns
+          <em>zero</em> calls to <code>toast()</code> or <code>useToast()</code>.
+        </p>
+        <ul class="paths">
+          <li>src/App.tsx:39–40</li>
+          <li>src/hooks/use-toast.ts (186 LOC)</li>
+          <li>src/components/ui/toast.tsx (111)</li>
+          <li>ui/toaster.tsx (24)</li>
+          <li>ui/sonner.tsx (27)</li>
+        </ul>
+        <p class="fix"><b>Fix</b>Remove both. If toasts are wanted later, pick one — Sonner is the lighter of the two — and drop the other permanently.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×1</span>
+        <span class="metric-sub">re-export shim</span>
+      </div>
+      <div class="body">
+        <h3>A three-line file exists only to re-export another file</h3>
+        <p>
+          <code>src/components/ui/use-toast.ts</code> imports <code>useToast</code> and <code>toast</code>
+          from <code>@/hooks/use-toast</code> and immediately re-exports them. It creates a second import
+          path for the same two symbols, and nothing imports it.
+        </p>
+        <p class="fix"><b>Fix</b>Delete the file. (Moot once the toast system goes.)</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">28 LOC</span>
+        <span class="metric-sub">unused</span>
+      </div>
+      <div class="body">
+        <h3><code>NavLink.tsx</code> reimplements react-router's own NavLink, and nothing uses it</h3>
+        <p>
+          It is a compatibility shim that restores the React Router v5 <code>activeClassName</code> /
+          <code>pendingClassName</code> API on top of the v6 render-prop API — duplicating a library the
+          project already depends on. No file imports it.
+        </p>
+        <p class="fix"><b>Fix</b>Delete. Use <code>NavLink</code> from <code>react-router-dom</code> directly if a nav link is ever needed.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">19 LOC</span>
+        <span class="metric-sub">orphaned by proxy</span>
+      </div>
+      <div class="body">
+        <h3><code>useIsMobile</code> is consumed only by the unused sidebar component</h3>
+        <p>
+          <code>src/hooks/use-mobile.tsx</code> has exactly one importer: <code>ui/sidebar.tsx</code>,
+          which itself has none. Every responsive decision in the actual site is made with Tailwind
+          breakpoints instead.
+        </p>
+        <p class="fix"><b>Fix</b>Deletes automatically with the sidebar component.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">37<span style="color:var(--faint)">/51</span></span>
+        <span class="metric-sub">deps unreachable</span>
+      </div>
+      <div class="body">
+        <h3>Three quarters of the runtime dependencies exist only to serve unused components</h3>
+        <p>
+          Once the unimported shadcn files are deleted, 37 of the 51 entries in
+          <code>dependencies</code> have no importer at all: 25 Radix packages plus
+          <code>recharts</code>, <code>embla-carousel-react</code>, <code>cmdk</code>,
+          <code>vaul</code>, <code>react-day-picker</code>, <code>react-hook-form</code>,
+          <code>react-resizable-panels</code>, <code>input-otp</code> and more.
+        </p>
+        <p>
+          Four are already dead <em>today</em>, before deleting anything:
+          <code>@hookform/resolvers</code>, <code>date-fns</code>, <code>zod</code>, and
+          <code>tailwindcss-animate</code> — the last of which is loaded as a Tailwind plugin but whose
+          animation utilities are never used in any class string.
+        </p>
+        <p class="fix"><b>Fix</b>Prune <code>package.json</code> after the component deletion, then regenerate the lockfile. Install size and <code>npm audit</code> surface both drop sharply.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×8</span>
+        <span class="metric-sub">phantom tokens</span>
+      </div>
+      <div class="body">
+        <h3>Tailwind declares eight <code>sidebar-*</code> colours backed by CSS variables that don't exist</h3>
+        <p>
+          <code>tailwind.config.ts</code> maps <code>sidebar</code>, <code>sidebar-foreground</code>,
+          <code>sidebar-primary</code> and five more onto <code>--sidebar-background</code> etc.
+          None of those custom properties is ever defined in <code>src/index.css</code>. Any class
+          using them resolves to an invalid colour.
+        </p>
+        <ul class="paths"><li>tailwind.config.ts:50–59</li></ul>
+        <p class="fix"><b>Fix</b>Remove the <code>sidebar</code> block. Same for the <code>accordion-down</code> / <code>accordion-up</code> keyframes and animations, which only the unused accordion uses.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">1 LOC</span>
+        <span class="metric-sub">never imported</span>
+      </div>
+      <div class="body">
+        <h3><code>src/App.css</code> is a file containing the comment <code>/* Reset */</code></h3>
+        <p>Nothing imports it. <code>main.tsx</code> imports only <code>index.css</code>.</p>
+        <p class="fix"><b>Fix</b>Delete.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×2</span>
+        <span class="metric-sub">same cursor</span>
+      </div>
+      <div class="body">
+        <h3>The custom cursor ships as both PNG and SVG; only the PNG is wired up</h3>
+        <p>
+          <code>index.css:42</code> sets <code>cursor: url('/kickstart_cursor.png')</code>.
+          <code>public/kickstart_cursor.svg</code> is the same mark in a second format and is
+          referenced nowhere. <code>public/placeholder.svg</code> — Lovable scaffolding — is likewise unused.
+        </p>
+        <p class="fix"><b>Fix</b>Delete the unused SVGs, or switch the cursor to the SVG and delete the PNG. Do not keep both.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">lockfiles</span>
+      </div>
+      <div class="body">
+        <h3>Three package lockfiles, three possible dependency trees</h3>
+        <p>
+          <code>bun.lock</code> (165 KB), <code>bun.lockb</code> (247 KB — the binary form of the same
+          thing) and <code>package-lock.json</code> (238 KB) all sit in the repo root. Whichever one
+          your CI or your teammate's machine happens to honour decides which versions get installed,
+          and nothing keeps the three in step.
+        </p>
+        <p class="fix"><b>Fix</b>Pick one package manager. Delete the other two lockfiles and add them to <code>.gitignore</code>. If Bun: keep <code>bun.lock</code>, drop the legacy <code>bun.lockb</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. COMPONENT MARKUP ============ -->
+  <section>
+    <div class="sechead">
+      <h2>Repeated markup across components</h2>
+      <span class="count">11 findings</span>
+    </div>
+    <p class="secnote">
+      Every landing section was written by copying the previous one. The shared parts never got
+      factored out, so a change to the site's rhythm — section padding, scroll animation, heading
+      scale — now has to be made in seven to nine places by hand.
+    </p>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×9</span>
+        <span class="metric-sub">identical</span>
+      </div>
+      <div class="body">
+        <h3>The same four-line scroll-reveal block is pasted into nine components</h3>
+<pre>&lt;motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.6 }}
+&gt;</pre>
+        <ul class="paths">
+          <li>ProofBanner:12</li><li>Philosophy:6</li><li>WhoItsFor:13</li>
+          <li>WhatYouGet:30</li><li>AlumniGrid:147</li><li>Backers:59</li>
+          <li>Partners:62</li><li>ApplyCTA:7</li><li>EmailCTA:7</li>
+        </ul>
+        <p class="fix"><b>Fix</b>Export one <code>revealOnScroll</code> variant object and spread it: <code>&lt;motion.div {...revealOnScroll}&gt;</code>. Nine sites become one.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×7</span>
+        <span class="metric-sub">char-identical</span>
+      </div>
+      <div class="body">
+        <h3>Seven sections repeat the identical section-shell class string</h3>
+        <p>
+          <code>py-20 md:py-32 px-6 md:px-16 lg:px-24 border-t border-border</code> appears verbatim in
+          ProofBanner, Philosophy, WhoItsFor, WhatYouGet, AlumniGrid, ApplyCTA and EmailCTA.
+          The narrower fragment <code>px-6 md:px-16 lg:px-24</code> — the site's page gutter — occurs
+          <strong>29 times</strong> across components and pages.
+        </p>
+        <p class="fix"><b>Fix</b>One <code>&lt;Section&gt;</code> wrapper component carrying the shell plus the reveal animation from the previous finding. That single change collapses both findings and makes the gutter editable in one place.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">identical header</span>
+      </div>
+      <div class="body">
+        <h3>All three sub-pages carry a hand-copied top bar</h3>
+        <p>
+          The logo-plus-"← Back" header is nine identical lines in <code>Apply.tsx:66</code>,
+          <code>Fellows.tsx:206</code> and <code>Perks.tsx:404</code>. Only Perks differs, and only
+          because it writes the font style as a <code>monoFont</code> object rather than inline —
+          same output, different spelling.
+        </p>
+        <p class="fix"><b>Fix</b>Extract <code>&lt;PageHeader /&gt;</code> next to the existing <code>&lt;Footer /&gt;</code>, which the same three pages already share correctly.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×2</span>
+        <span class="metric-sub">near-identical</span>
+      </div>
+      <div class="body">
+        <h3>The four-cell stat strip is written twice, and the two copies have drifted</h3>
+        <p>
+          <code>Apply.tsx:100–129</code> and <code>Fellows.tsx:249–275</code> are the same 27 lines.
+          The only differences are accidental: Apply wraps it in <code>&lt;motion.div {...fadeUp}&gt;</code>
+          and Fellows in a plain <code>&lt;div&gt;</code> (so the Fellows strip silently doesn't animate),
+          and Apply's border logic reads <code>"border-r md:border-r"</code> where Fellows reads
+          <code>"border-r"</code> — the first being a class that redundantly repeats itself.
+        </p>
+        <p class="fix"><b>Fix</b>Extract <code>&lt;StatStrip items={…} /&gt;</code>. Decide once whether it animates.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">stats arrays</span>
+      </div>
+      <div class="body">
+        <h3>Three separate arrays named <code>stats</code>, holding overlapping numbers</h3>
+        <p>
+          <code>ProofBanner.tsx:3</code> ($500M+, 21, 0%), <code>Apply.tsx:13</code> (~0.1%, 0%, 21, 800+)
+          and <code>Fellows.tsx:127</code> (14, B5, 2026, Active). Two of them assert the same two facts —
+          <em>21 average age</em> and <em>0% equity</em> — in two different capitalisations of the label.
+        </p>
+        <p class="fix"><b>Fix</b>One <code>src/content/stats.ts</code>. Pages pick the subset they display.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×2</span>
+        <span class="metric-sub">same const</span>
+      </div>
+      <div class="body">
+        <h3><code>fadeUp</code> is defined identically in two page files</h3>
+        <p>
+          Character-for-character the same object literal at <code>Apply.tsx:6</code> and
+          <code>Perks.tsx:19</code> — a second, subtly different animation preset from the
+          <code>×9</code> block above (<code>y:20</code>/<code>-80px</code> vs
+          <code>y:30</code>/<code>-100px</code>). The site therefore has two reveal animations that
+          look almost but not quite the same.
+        </p>
+        <p class="fix"><b>Fix</b>Move both into <code>src/lib/motion.ts</code> and consciously decide whether the difference is intentional.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">same behaviour</span>
+      </div>
+      <div class="body">
+        <h3>"Show all on mobile" is implemented three times from scratch</h3>
+        <p>
+          The same <code>useState</code> + <code>slice(0, n)</code> + toggle-button pattern appears in
+          <code>AlumniGrid.tsx:112</code> (slice 3), <code>Backers.tsx:43</code> (slice 3) and
+          <code>Fellows.tsx:200</code> (slice 6). The three even disagree on the copy — two say
+          "Show less" on collapse, Fellows offers no way back.
+        </p>
+        <p class="fix"><b>Fix</b>One <code>useCollapsibleList(items, limit)</code> hook, or a <code>&lt;CollapsibleGrid&gt;</code> that owns the button.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">double render</span>
+      </div>
+      <div class="body">
+        <h3>Three components render every card into the DOM twice and hide one copy with CSS</h3>
+        <p>
+          AlumniGrid, Backers and Fellows each build a mobile list and a desktop list side by side,
+          switching between them with <code>sm:hidden</code> / <code>hidden sm:grid</code>. On a desktop
+          load, Fellows mounts 28 <code>motion.div</code> cards to show 14; AlumniGrid mounts 30 flip
+          cards to show 21, each with its own logo <code>&lt;img&gt;</code>. Hidden images are still fetched.
+        </p>
+        <p class="fix"><b>Fix</b>Render the list once and vary only the grid classes, or gate the slice on a breakpoint value rather than duplicating the tree.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×11</span>
+        <span class="metric-sub">two eyebrow styles</span>
+      </div>
+      <div class="body">
+        <h3>The section eyebrow exists in two competing forms, eleven times</h3>
+        <p>
+          The home page uses a sans variant —
+          <code>text-xs uppercase tracking-[0.2em] text-primary mb-3 font-medium</code> — five times
+          (Philosophy, WhatYouGet, AlumniGrid, Backers, Partners). The sub-pages use a mono variant
+          with different spacing six times (Apply, Fellows, and four separate places in Perks).
+          Apply even wraps its version in a local <code>&lt;Eyebrow&gt;</code> component that the other
+          pages don't import.
+        </p>
+        <p class="fix"><b>Fix</b>Promote Apply's <code>&lt;Eyebrow&gt;</code> to <code>src/components/</code>, give it a <code>variant</code> prop if both looks are wanted, and use it in all eleven places.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×4 / ×3 / ×2</span>
+        <span class="metric-sub">class strings</span>
+      </div>
+      <div class="body">
+        <h3>Heading, lede and CTA-button class strings are repeated verbatim</h3>
+        <p>
+          <code>text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 tracking-tight</code>
+          — 4× (AlumniGrid, Backers, EmailCTA, WhatYouGet).
+          <code>text-muted-foreground text-base md:text-lg mb-12 max-w-xl</code> — 3×.
+          The uppercase primary CTA button — 2× (Apply's waitlist link, Perks' sign-in submit).
+          The decorative red full stop <code>&lt;span className="text-primary"&gt;.&lt;/span&gt;</code>
+          appears <strong>13 times</strong>.
+        </p>
+        <p class="fix"><b>Fix</b>Either <code>@layer components</code> classes in <code>index.css</code> (<code>.section-title</code>, <code>.section-lede</code>, <code>.btn-primary</code>), or small <code>&lt;SectionTitle&gt;</code> / <code>&lt;Button&gt;</code> components. The full stop deserves a one-line <code>&lt;Dot /&gt;</code>.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">view shells</span>
+      </div>
+      <div class="body">
+        <h3>Perks' three states repeat the same shell three times</h3>
+        <p>
+          <code>SignInView</code>, <code>NotApprovedView</code> and <code>VerificationErrorView</code>
+          each open with the identical <code>&lt;section&gt;</code> class string, the identical
+          <code>&lt;motion.div {...fadeUp} className="max-w-xl w-full"&gt;</code>, an eyebrow
+          <code>&lt;span&gt;</code> and an <code>&lt;h1&gt;</code> in the same size. Only the words differ.
+        </p>
+        <ul class="paths"><li>Perks.tsx:71–82</li><li>Perks.tsx:143–154</li><li>Perks.tsx:167–178</li></ul>
+        <p class="fix"><b>Fix</b>One <code>&lt;GateView eyebrow title&gt;{children}&lt;/GateView&gt;</code>; the three states become three short call sites.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. STYLING ============ -->
+  <section>
+    <div class="sechead">
+      <h2>Styling declared in more than one place</h2>
+      <span class="count">3 findings</span>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×27</span>
+        <span class="metric-sub">inline fonts</span>
+      </div>
+      <div class="body">
+        <h3>The two typefaces are re-declared inline 27 times, on top of the global CSS</h3>
+        <p>
+          <code>index.css</code> already sets IBM Plex Sans on <code>body</code> and on
+          <code>h1–h6</code>, and IBM Plex Mono on <code>.font-mono</code>. Despite that,
+          <code>style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}</code> is written out 12 times
+          across 10 components, and the Mono equivalent 15 times across the three pages.
+          Perks alone recognised the problem and made a local <code>monoFont</code> constant —
+          which Apply and Fellows don't use.
+        </p>
+        <ul class="paths">
+          <li>Sans ×12 — Hero, ProofBanner, Philosophy ×2, WhoItsFor, WhatYouGet ×2, AlumniGrid, Backers, Partners, EmailCTA, SideNav</li>
+          <li>Mono ×15 — Apply ×6, Fellows ×8, Perks ×1</li>
+        </ul>
+        <p class="fix"><b>Fix</b>Add <code>fontFamily.sans</code> and <code>fontFamily.mono</code> to the Tailwind theme, then use <code>font-sans</code> / <code>font-mono</code> classes and delete all 27 inline styles. Changing the brand typeface becomes a one-line edit instead of a 27-file sweep.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">one colour</span>
+      </div>
+      <div class="body">
+        <h3>The page background colour is expressed three different ways</h3>
+        <p>
+          <code>index.html</code> hard-codes <code>#0a0a0a</code> on <code>&lt;html&gt;</code> and again on
+          <code>&lt;body&gt;</code>; <code>index.css</code> defines the same colour again as the token
+          <code>--background: 0 0% 4%</code>. They agree today by coincidence of rounding; retheming
+          the site means remembering that two of the three live in a file Tailwind never touches.
+          Separately, <code>AlumniGrid</code> hard-codes <code>hsl(0 0% 5%)</code> twice as its card
+          background instead of using <code>bg-card</code> — and <code>--card</code> is 7%, so the
+          alumni cards are quietly a different shade from every other card in the design system.
+        </p>
+        <p class="fix"><b>Fix</b>Keep one inline hex in <code>index.html</code> (it must work before CSS loads), drop the duplicate on <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>, and comment it as mirroring <code>--background</code>. Replace AlumniGrid's literals with <code>bg-card</code> and decide which shade is correct.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">meta tags</span>
+      </div>
+      <div class="body">
+        <h3>The page title and description are each written out three times in <code>index.html</code></h3>
+        <p>
+          <code>&lt;title&gt;</code>, <code>og:title</code> and <code>twitter:title</code> carry the same
+          string; <code>&lt;meta name="description"&gt;</code>, <code>og:description</code> and
+          <code>twitter:description</code> carry another. There is also an <code>og:image</code> pointing
+          at a <code>gpt-engineer-file-uploads</code> bucket rather than an asset in this repo,
+          and two stray blank lines where tags were removed.
+        </p>
+        <p class="fix"><b>Fix</b>Low stakes — but if the copy changes, all three must change together. Worth a comment marking them as a set, and worth moving the OG image into <code>public/</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. DATABASE ============ -->
+  <section>
+    <div class="sechead">
+      <h2>Duplication in the Supabase migrations</h2>
+      <span class="count">4 findings</span>
+    </div>
+    <p class="secnote">
+      Seven migrations, all dated the same day, iterating on one question: <em>is this user allowed to
+      see perks?</em> Each attempt was left in place, so the answer is now encoded in the database
+      three times over — and the abandoned attempts are still live objects.
+    </p>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">same function</span>
+      </div>
+      <div class="body">
+        <h3><code>is_on_perks_allowlist()</code> is defined three times, with different semantics each time</h3>
+        <p>
+          <code>…092632</code> creates it as <code>SECURITY DEFINER</code> joining
+          <code>auth.users</code> on a citext cast. <code>…094516</code> replaces it with the same join
+          but a <code>lower()</code> comparison. <code>…094611</code> replaces it again as
+          <code>SECURITY INVOKER</code> reading the allowlist directly off the JWT claim.
+          Only the last one runs — the first two are pure history, but a reader has to open all
+          three to know that.
+        </p>
+        <p class="fix"><b>Fix</b>Leave shipped migrations alone (rewriting applied history is worse), but add a short <code>supabase/README.md</code> stating which definition is current. Squash before the next environment is provisioned.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×2</span>
+        <span class="metric-sub">dead function</span>
+      </div>
+      <div class="body">
+        <h3><code>has_perks_access(uuid)</code> is defined twice and is now dead, but still exists in the database</h3>
+        <p>
+          Created in <code>…075121</code>, redefined in <code>…075214</code>, and orphaned by
+          <code>…094803</code> when the perks RLS policy was rewritten to inline the check instead.
+          The final migration revokes execute on it from every role but never drops it — so a
+          <code>SECURITY DEFINER</code> function that reads <code>auth.users</code> is still sitting in
+          the <code>public</code> schema with no caller.
+        </p>
+        <p class="fix"><b>Fix</b>Add a migration with <code>drop function if exists public.has_perks_access(uuid);</code>. An unused SECURITY DEFINER function is the kind of thing you want gone rather than merely un-granted.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3</span>
+        <span class="metric-sub">same predicate</span>
+      </div>
+      <div class="body">
+        <h3>The allowlist test is written out in three separate objects</h3>
+        <p>
+          <code>lower(a.email::text) = lower(auth.jwt() -&gt;&gt; 'email')</code> appears in the
+          <code>is_on_perks_allowlist()</code> body, in the
+          <code>"Users can verify their own allowlist row"</code> policy, and again in the
+          <code>"Approved users can view perks"</code> policy. Three copies of one authorisation rule:
+          change the matching semantics — trimming whitespace, say — and missing one copy means the
+          RPC and the row policy disagree about who is allowed in.
+        </p>
+        <ul class="paths"><li>…094611 (fn + allowlist policy)</li><li>…094803 (perks policy)</li></ul>
+        <p class="fix"><b>Fix</b>Have both policies call <code>public.is_on_perks_allowlist()</code> so the predicate lives in exactly one place.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×4</span>
+        <span class="metric-sub">grant blocks</span>
+      </div>
+      <div class="body">
+        <h3>The same three-line REVOKE incantation is repeated in four migrations</h3>
+        <p>
+          <code>revoke execute … from public / anon / authenticated</code> is re-issued in
+          <code>…075151</code>, <code>…075214</code>, <code>…094516</code> and <code>…094803</code> —
+          mostly re-revoking what was already revoked, because each <code>create or replace</code>
+          resets the grants and nobody was certain which state they were in.
+        </p>
+        <p class="fix"><b>Fix</b>Symptom of the churn above; resolves when the function definitions are squashed to one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. CONFIG ============ -->
+  <section>
+    <div class="sechead">
+      <h2>Configuration written twice</h2>
+      <span class="count">2 findings</span>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×2</span>
+        <span class="metric-sub">build config</span>
+      </div>
+      <div class="body">
+        <h3><code>vite.config.ts</code> and <code>vitest.config.ts</code> restate the same plugin and alias setup</h3>
+        <p>
+          Both declare <code>plugins: [react()]</code> and both resolve
+          <code>"@" → ./src</code>. The Vitest config silently misses Vite's
+          <code>dedupe</code> list and the <code>componentTagger</code> plugin, so tests run against a
+          slightly different module graph than the app does.
+        </p>
+        <p class="fix"><b>Fix</b>Delete <code>vitest.config.ts</code> and move the <code>test</code> block into <code>vite.config.ts</code> (Vitest reads it natively), or use <code>mergeConfig</code> to extend the real config rather than restating it.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×3</span>
+        <span class="metric-sub">tsconfigs</span>
+      </div>
+      <div class="body">
+        <h3>Three tsconfigs repeat the same compiler options instead of extending one base</h3>
+        <p>
+          <code>paths</code>, <code>skipLibCheck</code>, <code>noImplicitAny: false</code>,
+          <code>noUnusedLocals: false</code> and <code>noUnusedParameters: false</code> are written
+          into both <code>tsconfig.json</code> and <code>tsconfig.app.json</code>; the bundler-mode
+          block (<code>moduleResolution</code>, <code>isolatedModules</code>,
+          <code>allowImportingTsExtensions</code>, <code>moduleDetection</code>, <code>noEmit</code>)
+          is repeated in <code>tsconfig.app.json</code> and <code>tsconfig.node.json</code>.
+          The two also disagree on <code>strict</code> — <code>false</code> for app code,
+          <code>true</code> for config files.
+        </p>
+        <p class="fix"><b>Fix</b>Put the shared options in <code>tsconfig.base.json</code> and have both project configs <code>extends</code> it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. CONTENT ============ -->
+  <section>
+    <div class="sechead">
+      <h2>The same facts typed in several places</h2>
+      <span class="count">4 findings</span>
+    </div>
+    <p class="secnote">
+      This is the category with real business risk. Kickstart's headline claims are hard-coded as
+      strings scattered through JSX, and some of the copies have already fallen out of sync with
+      each other.
+    </p>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×3–4</span>
+        <span class="metric-sub">per claim</span>
+      </div>
+      <div class="body">
+        <h3>Every headline number is hard-coded in three or more places</h3>
+        <pre><span class="dim">0% equity  </span>  ProofBanner:6 · Apply:15 (stat) · Apply:29 (bullet) · Apply:85 (headline)
+<span class="dim">21 avg age </span>  ProofBanner:5 · Apply:16 (stat) · Apply:22 (bullet)
+<span class="dim">0.1% accept</span>  Apply:14 (stat) · Apply:86 (headline) · Apply:172 (prose)
+<span class="dim">Cohort B5  </span>  Fellows:129 (stat) · Fellows:228 (eyebrow) · Perks:258 (eyebrow)
+<span class="dim">14 fellows </span>  Fellows:128 (stat) · Fellows:244 (prose) · FELLOWS.length (button)</pre>
+        <p>
+          The fellows count is the clearest illustration: the button already computes
+          <code>FELLOWS.length</code>, so adding a fifteenth fellow updates the button and leaves the
+          stat tile and the sentence both saying 14.
+        </p>
+        <p class="fix"><b>Fix</b>A <code>src/content/facts.ts</code> exporting <code>EQUITY_TAKEN</code>, <code>AVG_AGE</code>, <code>ACCEPTANCE_RATE</code>, <code>COHORT</code>, and deriving fellow and perk counts from the arrays themselves. Cohort rollover then becomes one edit rather than a hunt.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×4</span>
+        <span class="metric-sub">disagreeing</span>
+      </div>
+      <div class="body">
+        <h3>The partner and mentor roster exists in four versions that don't match</h3>
+        <p>
+          <code>Partners.tsx</code> lists 8 logos. <code>Backers.tsx</code> lists 10 people whose
+          companies partly overlap (Sequoia Capital, 1517 Fund) and partly don't (OakNorth, Octopus
+          Energy, J.P. Morgan, Monzo, Wise, OpenAI). <code>Apply.tsx:32</code> then names a fifth set
+          in prose — "Sequoia, OakNorth, Octopus, J.P. Morgan, 1517 Fund, Antler" — where
+          <strong>Antler appears nowhere else in the site</strong>. And <code>AlumniGrid</code> uses
+          "Techstars" and "YC-backed" as company badges, a sixth place the same names are typed.
+        </p>
+        <p>
+          All ten <code>linkedin</code> fields in <code>Backers.tsx</code> are the placeholder
+          <code>"#"</code>, so every card links to the top of the page.
+        </p>
+        <p class="fix"><b>Fix</b>One <code>src/content/network.ts</code> with a typed list of organisations and people, tagged by relationship (partner / mentor / investor). Every surface reads from it, and the Apply prose is generated from the same list.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">×2</span>
+        <span class="metric-sub">two spellings</span>
+      </div>
+      <div class="body">
+        <h3>One alumni company appears in two datasets under two spellings</h3>
+        <p>
+          <code>AlumniGrid.tsx:53</code> lists <strong>"InX Tech"</strong> — "Industrial X-ray
+          technology". <code>Fellows.tsx:35</code> describes Aryan Shah building
+          <strong>"InxTech"</strong> — "autonomous underwater vehicles for offshore energy inspection".
+          Same company, two names, and two descriptions that don't obviously describe the same
+          business. A visitor moving between the two pages sees a contradiction.
+        </p>
+        <p class="fix"><b>Fix</b>Decide the canonical name and description, put the company in one <code>companies.ts</code>, and have the fellow record reference it by id.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">×3</span>
+        <span class="metric-sub">copy echo</span>
+      </div>
+      <div class="body">
+        <h3>Repeated phrasing inside the copy itself</h3>
+        <p>
+          <code>Philosophy.tsx</code> opens its pull-quote with "Most talented people never compound."
+          and then opens the very next paragraph with "Most talented people scatter their energy…" —
+          the echo reads as an editing artefact rather than a rhetorical device.
+          "Building in frontier tech" appears three times across Apply and Fellows.
+          <code>Partners.tsx</code> also hand-writes its eight partner names into
+          <em>three shuffled arrays</em> (<code>row1</code>, <code>row2</code>, <code>row3</code>) and
+          then triples each row at render time — 8 real partners become 72 DOM nodes and 72 image
+          references.
+        </p>
+        <p class="fix"><b>Fix</b>For Partners: keep one array and shuffle it with a seeded helper per row. For the copy: a light editorial pass, ideally by whoever owns the voice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADJACENT ============ -->
+  <section>
+    <div class="sechead">
+      <h2>Not duplication, but found on the way through</h2>
+      <span class="count">4 items</span>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">exposed</span>
+        <span class="metric-sub">check this first</span>
+      </div>
+      <div class="body">
+        <h3><code>.env</code> is committed and <code>.gitignore</code> does not cover it</h3>
+        <p>
+          The file holds <code>VITE_SUPABASE_PROJECT_ID</code>,
+          <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> and <code>VITE_SUPABASE_URL</code>. These are
+          publishable values that ship in the client bundle anyway, so this is not an emergency —
+          but the pattern is, because the next secret added to that file will be committed too.
+          Note also that <code>.gitignore</code> lists <code>*.local</code>, which suggests
+          <code>.env</code> was meant to be ignored and never was.
+        </p>
+        <p class="fix"><b>Fix</b>Add <code>.env</code> to <code>.gitignore</code>, commit a <code>.env.example</code> with empty values, and confirm no non-publishable key was ever added to it.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">personal data</span>
+        <span class="metric-sub">in git history</span>
+      </div>
+      <div class="body">
+        <h3><code>.lovable/plan.md</code> contains a real user's email address and their access state</h3>
+        <p>
+          The file is a saved AI working note debugging one person's perks access. It names their
+          address, states they are on the allowlist, and reports on their sign-in history. It has no
+          function in the build.
+        </p>
+        <p class="fix"><b>Fix</b>Delete the file and add <code>.lovable/</code> to <code>.gitignore</code>. If the repo is or becomes public, the address is in the history too.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric">broken</span>
+        <span class="metric-sub">missing dep</span>
+      </div>
+      <div class="body">
+        <h3>The Playwright setup imports a package that isn't installed</h3>
+        <p>
+          <code>playwright.config.ts</code> and <code>playwright-fixture.ts</code> both import from
+          <code>lovable-agent-playwright-config</code>, which appears in neither
+          <code>dependencies</code> nor <code>devDependencies</code>. There are also no
+          <code>.spec.ts</code> files, so there is nothing for Playwright to run. Vitest, meanwhile,
+          has exactly one test — <code>expect(true).toBe(true)</code>.
+        </p>
+        <p class="fix"><b>Fix</b>Either install the package and write a smoke test per route, or delete both Playwright files. Right now they only look like coverage.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter">
+        <span class="metric mild">scaffold</span>
+        <span class="metric-sub">leftovers</span>
+      </div>
+      <div class="body">
+        <h3>Generator defaults left in place</h3>
+        <p>
+          <code>README.md</code> reads "Welcome to your Lovable project / TODO: Document your project
+          here". <code>package.json</code> is still named <code>vite_react_shadcn_ts</code>.
+          <code>components.json</code> declares <code>baseColor: "slate"</code> while the actual
+          palette is a pure-red-on-near-black theme.
+        </p>
+        <p class="fix"><b>Fix</b>Fifteen minutes. The README in particular is what a new contributor — or a future you — hits first.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="plan">
+    <h2>What to do first</h2>
+    <p>
+      Ordered by payoff per unit of risk. The first three are close to free and take roughly
+      two thirds of the codebase off the table before anyone has to make a design decision.
+    </p>
+    <ol class="steps">
+      <li><span class="eff">30 min</span><span class="what">Delete the 45 unimported shadcn files and both toast systems<small>−4,163 LOC, ~64% of src/. Then prune package.json and regenerate one lockfile.</small></span></li>
+      <li><span class="eff">10 min</span><span class="what">Delete two of the three lockfiles, <code>App.css</code>, the unused SVGs, <code>NavLink.tsx</code><small>Pure removal, nothing to review.</small></span></li>
+      <li><span class="eff">15 min</span><span class="what">Gitignore <code>.env</code> and <code>.lovable/</code>; delete <code>plan.md</code><small>Do this before the repo is shared any wider.</small></span></li>
+      <li><span class="eff">2 hrs</span><span class="what">Extract <code>&lt;Section&gt;</code>, <code>&lt;PageHeader&gt;</code>, <code>&lt;Eyebrow&gt;</code>, <code>&lt;StatStrip&gt;</code>, one motion preset<small>Collapses the ×9, ×7, ×3, ×2 and ×11 findings in one pass.</small></span></li>
+      <li><span class="eff">1 hr</span><span class="what">Move the typefaces into the Tailwind theme and delete all 27 inline <code>fontFamily</code> styles<small>Makes the brand font a one-line change.</small></span></li>
+      <li><span class="eff">2 hrs</span><span class="what">Create <code>src/content/</code> — facts, network, companies, fellows<small>Fixes the ×3–4 claims, the four-way roster mismatch and the InX Tech contradiction together.</small></span></li>
+      <li><span class="eff">1 hr</span><span class="what">Drop the dead <code>has_perks_access</code>; route both RLS policies through <code>is_on_perks_allowlist()</code><small>One authorisation rule in one place.</small></span></li>
+      <li><span class="eff">30 min</span><span class="what">Merge the Vitest config into Vite; add a <code>tsconfig.base.json</code><small>Tests then run against the same module graph as the app.</small></span></li>
+    </ol>
+  </div>
+
+  <footer>
+    Audit performed on the uploaded archive of ortira/kickstart-manifesto (main).<br>
+    145 files · 6,539 LOC in src/ · 34 findings · no byte-identical files detected.<br>
+    Line references are to the archive as supplied and may drift as the repo moves.
+  </footer>
+
+</div>
