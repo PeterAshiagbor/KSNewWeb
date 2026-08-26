@@ -1,0 +1,685 @@
+<title>Kickstart Manifesto Deep Scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --ground:   #ECEEF1;
+    --surface:  #F8F9FB;
+    --sunk:     #E2E6EA;
+    --ink:      #16202B;
+    --muted:    #5D6C7C;
+    --faint:    #8493A2;
+    --rule:     #D2D8DF;
+    --accent:   #0D6E6B;
+    --accent-soft: #0d6e6b1f;
+    --clay:     #A94B29;
+    --clay-soft:#a94b291a;
+    --amber:    #855D0C;
+    --amber-soft:#855d0c1a;
+    --shadow:   0 1px 0 #1620200a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #0E151D;
+      --surface:  #161F29;
+      --sunk:     #1B2631;
+      --ink:      #DFE6EC;
+      --muted:    #92A3B2;
+      --faint:    #6B7C8B;
+      --rule:     #27323E;
+      --accent:   #47AFA6;
+      --accent-soft: #47afa622;
+      --clay:     #DE8A63;
+      --clay-soft:#de8a6322;
+      --amber:    #C7A251;
+      --amber-soft:#c7a25122;
+      --shadow:   none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #0E151D;
+    --surface:  #161F29;
+    --sunk:     #1B2631;
+    --ink:      #DFE6EC;
+    --muted:    #92A3B2;
+    --faint:    #6B7C8B;
+    --rule:     #27323E;
+    --accent:   #47AFA6;
+    --accent-soft: #47afa622;
+    --clay:     #DE8A63;
+    --clay-soft:#de8a6322;
+    --amber:    #C7A251;
+    --amber-soft:#c7a25122;
+    --shadow:   none;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 68px 0 22px;
+    margin-bottom: 34px;
+  }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 20px;
+  }
+  h1 {
+    font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.1rem);
+    line-height: 0.98;
+    letter-spacing: -0.033em;
+    text-wrap: balance;
+    margin: 0 0 22px;
+  }
+  .standfirst {
+    font-size: 1.19rem;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0 0 26px;
+  }
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 26px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    color: var(--faint);
+  }
+  .meta b { color: var(--muted); font-weight: 500; }
+
+  /* ---------- summary tiles ---------- */
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 60px;
+  }
+  .tile { background: var(--surface); padding: 20px 20px 18px; }
+  .tile .n {
+    font-family: Archivo, sans-serif;
+    font-weight: 800;
+    font-size: 2.25rem;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    display: block;
+    margin-bottom: 9px;
+  }
+  .tile .n.hi { color: var(--clay); }
+  .tile .n.ac { color: var(--accent); }
+  .tile .l {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+    display: block;
+  }
+
+  /* ---------- section ---------- */
+
+  section { margin-bottom: 62px; }
+  .sechead {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 9px;
+    margin-bottom: 8px;
+  }
+  .sechead h2 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: -0.015em;
+    margin: 0;
+    flex: 1;
+  }
+  .sechead .count {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    white-space: nowrap;
+  }
+  .secnote {
+    color: var(--muted);
+    font-size: 0.96rem;
+    max-width: 66ch;
+    margin: 0 0 4px;
+    padding: 10px 0 14px;
+  }
+
+  /* ---------- findings ---------- */
+
+  .finding {
+    display: grid;
+    grid-template-columns: 116px 1fr;
+    gap: 0 24px;
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+  }
+  .gutter { padding-top: 2px; }
+  .metric {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 1.02rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--clay);
+    letter-spacing: -0.01em;
+    display: block;
+    line-height: 1.25;
+  }
+  .metric.mild { color: var(--amber); }
+  .metric.info { color: var(--accent); }
+  .metric-sub {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: block;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+  .body h3 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 1.03rem;
+    letter-spacing: -0.008em;
+    margin: 0 0 7px;
+    text-wrap: balance;
+  }
+  .body p { margin: 0 0 9px; color: var(--muted); font-size: 0.99rem; }
+  .body p:last-child { margin-bottom: 0; }
+  .body .fix {
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: 12px;
+    margin-top: 11px;
+    font-size: 0.96rem;
+  }
+  .body .fix b {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+
+  code, .path {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.83em;
+    background: var(--sunk);
+    border-radius: 2px;
+    padding: 1.5px 5px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .paths {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 9px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .paths li {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    background: var(--sunk);
+    color: var(--muted);
+    padding: 3px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  pre {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    background: var(--sunk);
+    border-left: 2px solid var(--rule);
+    padding: 12px 14px;
+    margin: 11px 0 0;
+    overflow-x: auto;
+    color: var(--ink);
+  }
+  pre .dim { color: var(--faint); }
+
+  /* ---------- closing ---------- */
+
+  .plan {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 28px 30px 26px;
+    margin-top: 8px;
+  }
+  .plan h2 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 6px;
+  }
+  .plan > p { color: var(--muted); margin: 0 0 18px; max-width: 64ch; }
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .steps li { background: var(--surface); padding: 14px 16px; display: grid; grid-template-columns: 92px 1fr; gap: 18px; align-items: baseline; }
+  .steps .eff {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .steps .what { font-size: 0.98rem; }
+  .steps .what small { display: block; color: var(--faint); font-size: 0.85rem; margin-top: 2px; }
+
+  footer {
+    margin-top: 54px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--faint);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 660px) {
+    .finding { grid-template-columns: 1fr; gap: 10px; }
+    .gutter { display: flex; align-items: baseline; gap: 10px; }
+    .metric-sub { margin-top: 0; }
+    .steps li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Deep scan &middot; ortira/kickstart-manifesto &middot; companion to the duplication ledger</p>
+    <h1>What breaks, what leaks, what crawls</h1>
+    <p class="standfirst">
+      Beyond duplication: four independent review passes &mdash; security, runtime correctness,
+      performance, accessibility &amp; SEO &mdash; plus a real build of the project. The verdict in one
+      line: <strong>the access-control design is sound, but the apply funnel dead-ends, two pages are
+      unreachable from anywhere, and ~8.9&thinsp;MB loads behind a 2.5-second curtain.</strong>
+    </p>
+    <div class="meta">
+      <span><b>Method</b> 4 parallel reviews, cross-verified &middot; vite build &middot; tsc &middot; vitest &middot; eslint</span>
+      <span><b>Findings</b> 33</span>
+    </div>
+  </header>
+
+  <div class="tiles">
+    <div class="tile"><span class="n hi">8.9<span style="font-size:1.3rem">MB</span></span><span class="l">initial payload<br>on first visit</span></div>
+    <div class="tile"><span class="n hi">#</span><span class="l">the apply CTA&rsquo;s<br>entire href</span></div>
+    <div class="tile"><span class="n hi">0</span><span class="l">links anywhere to<br>/fellows or /perks</span></div>
+    <div class="tile"><span class="n">727<span style="font-size:1.3rem">KB</span></span><span class="l">single JS chunk<br>(no code splitting)</span></div>
+    <div class="tile"><span class="n ac">4.95:1</span><span class="l">red-on-black contrast<br>passes AA &mdash; barely</span></div>
+  </div>
+
+  <!-- ============ TOOLCHAIN ============ -->
+  <section>
+    <div class="sechead"><h2>Toolchain ground truth &mdash; actually run, not inferred</h2><span class="count">5 checks</span></div>
+    <div class="finding">
+      <div class="gutter"><span class="metric info">ran it</span><span class="metric-sub">real build</span></div>
+      <div class="body">
+        <pre>vite build    PASS &mdash; one 727 KB JS chunk (226 KB gz); Vite itself warns about missing code-splitting
+tsc -b        PASS &mdash; but strict: false, so this proves little
+vitest run    PASS &mdash; 1/1; the only test is expect(true).toBe(true)
+eslint .      FAIL &mdash; 3 errors, 7 warnings (2 errors in unused shadcn files; require() in tailwind.config.ts:90)
+playwright    CANNOT RUN &mdash; config imports lovable-agent-playwright-config, installed nowhere</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECURITY ============ -->
+  <section>
+    <div class="sechead"><h2>Security</h2><span class="count">5 findings</span></div>
+    <p class="secnote">
+      The core access control is <em>sound</em> &mdash; verified: RLS on both tables, no <code>anon</code> read
+      anywhere, the allowlist policy is self-row-only (no email enumeration), the dead
+      SECURITY&nbsp;DEFINER function is revoked from all client roles, and the perks linkifier cannot emit
+      non-http(s) URLs. What remains is abuse- and config-risk, not a data breach.
+    </p>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">MEDIUM</span><span class="metric-sub">abuse / dos</span></div>
+      <div class="body">
+        <h3>Open signup: anyone can trigger magic-link emails and create auth users</h3>
+        <p><code>Perks.tsx:56&ndash;61</code> calls <code>signInWithOtp</code> without <code>shouldCreateUser: false</code>
+        (Supabase defaults to <em>true</em>; absence verified by grep). Anyone with the public site &mdash; or the
+        committed anon key &mdash; can fire sign-in emails at arbitrary addresses and create unbounded rows in
+        <code>auth.users</code>. The allowlist still blocks the data, so this is spam/quota-burn, not a leak.</p>
+        <p class="fix"><b>Fix</b>Pass <code>options: {shouldCreateUser: false}</code>; enable Supabase Auth rate limiting / CAPTCHA.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">MEDIUM</span><span class="metric-sub">config-dependent</span></div>
+      <div class="body">
+        <h3>RLS trusts the JWT email claim unconditionally</h3>
+        <p>Every gate reduces to <code>lower(auth.jwt() -&gt;&gt; 'email') = lower(allowlist.email)</code>. Safe for
+        magic-link &mdash; but if the project ever enables password signup with email confirmations off, an attacker
+        can register an allowlisted address with their own password and walk straight through.</p>
+        <p class="fix"><b>Fix</b>Confirm &ldquo;Confirm email&rdquo; is enforced project-wide; disable unused auth providers.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric mild">LOW</span><span class="metric-sub">hygiene</span></div>
+      <div class="body">
+        <h3><code>.env</code> committed and unignored; real PII in <code>.lovable/plan.md</code></h3>
+        <p>The anon key and project URL are publishable by design, but they feed the abuse above, and the next
+        value added to <code>.env</code> gets committed too. <code>.lovable/plan.md</code> holds a real user&rsquo;s
+        email, allowlist status and sign-in history &mdash; and stays in git history if the repo is public.</p>
+        <p class="fix"><b>Fix</b>Gitignore <code>.env</code> and <code>.lovable/</code>; delete <code>plan.md</code>; commit a <code>.env.example</code>.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric info">INFO</span><span class="metric-sub">verified safe</span></div>
+      <div class="body">
+        <h3>Checked and clean</h3>
+        <p>No XSS in <code>renderHow()</code> (scheme-guarded, React-escaped, DB write-locked); no email enumeration;
+        <code>dangerouslySetInnerHTML</code> only in the unused shadcn chart; no external scripts. Google Fonts has no
+        SRI and there is no CSP &mdash; hardening, not urgency.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CORRECTNESS ============ -->
+  <section>
+    <div class="sechead"><h2>Runtime correctness</h2><span class="count">8 findings</span></div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">race condition</span></div>
+      <div class="body">
+        <h3>Perks sign-in can hang on &ldquo;Verifying access&hellip;&rdquo; forever</h3>
+        <p><code>Perks.tsx:310&ndash;368</code> &mdash; the verify effect depends on the <code>session</code> <em>object</em>,
+        and its cleanup sets <code>cancelled = true</code>. On magic-link redirect, <code>onAuthStateChange</code> and
+        <code>getSession()</code> each deliver a different object identity for the same user: run&nbsp;#1 starts the RPC
+        and sets the user-id ref, the second session re-fires the effect, its cleanup cancels run&nbsp;#1 mid-flight,
+        and run&nbsp;#2 early-returns because the ref already matches. The user who just clicked their sign-in link
+        sits on a spinner with no retry control.</p>
+        <p class="fix"><b>Fix</b>Depend on <code>session?.user?.id</code>; reset the ref in cleanup when the check didn&rsquo;t complete.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">dead funnel</span></div>
+      <div class="body">
+        <h3>The apply funnel dead-ends at <code>href="#"</code></h3>
+        <p><code>Apply.tsx:193&ndash;200</code> &mdash; the page&rsquo;s primary CTA, &ldquo;Join the waitlist&rdquo;, scrolls to
+        top and joins nothing (the code comment admits the form embed is missing). <strong>Prospective applicants
+        cannot apply.</strong> All ten backer LinkedIn links are likewise <code>"#"</code> with
+        <code>target="_blank"</code> &mdash; each opens a new tab of the same site.</p>
+        <p class="fix"><b>Fix</b>Embed the form (or a mailto) now; remove the backer anchors until real URLs exist.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">navigation</span></div>
+      <div class="body">
+        <h3>No scroll reset on route change</h3>
+        <p>React Router v6 doesn&rsquo;t reset scroll and no <code>ScrollToTop</code> exists. The main entry to
+        <code>/apply</code> is the envelope at the <em>bottom</em> of the home page &mdash; users land on Apply scrolled
+        deep into the page. <code>scroll-behavior: smooth</code> on <code>html</code> means the fix must use
+        <code>behavior: "auto"</code> or it animates.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">fragile deploy</span></div>
+      <div class="body">
+        <h3>Missing env vars white-screen the whole site, not just Perks</h3>
+        <p><code>integrations/supabase/client.ts:5&ndash;11</code> runs <code>createClient</code> at module scope, and
+        Perks is statically imported by <code>App.tsx</code> &mdash; so it executes on every page load. Deploy anywhere
+        that doesn&rsquo;t inject <code>VITE_SUPABASE_URL</code> and the homepage throws during module evaluation. It
+        works today only because <code>.env</code> is committed.</p>
+        <p class="fix"><b>Fix</b><code>React.lazy</code> the Perks route (also the biggest bundle win), or validate env at startup.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric mild">MED &middot; LOW</span><span class="metric-sub">4 smaller items</span></div>
+      <div class="body">
+        <h3>Smaller, still real</h3>
+        <p><strong>Flip-card content unreachable on touch</strong> (hover-only; see the accessibility twin below).
+        <strong>NotFound links home with <code>&lt;a href="/"&gt;</code></strong> &mdash; full reload, replaying the 2.5s
+        gate; should be <code>&lt;Link&gt;</code>. <strong>Loading digits reshuffle mid-fade</strong> &mdash;
+        <code>Math.random()</code> in render re-rolls ~40 digits when fade-out begins. <strong>SideNav goes stale</strong>
+        past &ldquo;Apply&rdquo; (EmailCTA has no id) and the marquee loop has a ~5px seam per cycle (3&times; copies vs
+        &frac13; translate).</p>
+        <p>Explicitly checked, <em>not</em> bugs: the stat-strip border ternaries, the <code>{...fadeUp}</code> spread
+        ordering, flip-card CSS specificity, vitest include pattern.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERFORMANCE ============ -->
+  <section>
+    <div class="sechead"><h2>Performance</h2><span class="count">7 findings</span></div>
+    <p class="secnote">Measured, not estimated. First-visit payload on <code>/</code>: ~8.9&thinsp;MB of media and JS,
+    delivered behind a deliberate 2.5-second curtain.</p>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">5.6 MB</span><span class="metric-sub">critical</span></div>
+      <div class="body">
+        <h3>Hero video: ~8.9&thinsp;Mbps bitrate for a blurred background loop</h3>
+        <p><code>public/hero-bg.mp4</code>: 1920&times;1072, 5-second loop, 5,586,980 bytes. No <code>poster</code>, default
+        <code>preload="auto"</code> &mdash; downloads immediately on every visit, competing with JS and fonts. On iOS Low
+        Power Mode autoplay is refused and the hero shows nothing but the overlay.</p>
+        <p class="fix"><b>Fix</b>Re-encode 720p CRF 28&ndash;32 (&rarr; 400&ndash;800 KB, ~90% smaller); add poster + <code>preload="metadata"</code>; show the poster under reduced motion.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">2.8 MB</span><span class="metric-sub">critical</span></div>
+      <div class="body">
+        <h3>A photographic PNG as a section background, under a 40% overlay</h3>
+        <p><code>src/assets/backers-bg.png</code> (1071&times;1920) &mdash; wrong codec by ~10&times; for photographic
+        content whose fine detail the overlay hides anyway; loads eagerly despite sitting several viewports below the fold.</p>
+        <p class="fix"><b>Fix</b>WebP/AVIF q&asymp;60 &rarr; 150&ndash;300 KB; lazy-apply via IntersectionObserver.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">2.5 s</span><span class="metric-sub">self-inflicted</span></div>
+      <div class="body">
+        <h3>The loading gate is a designed-in Core Web Vitals &ldquo;Poor&rdquo;</h3>
+        <p>A pure <code>setTimeout(2500)</code> uncorrelated with any real loading: it delays fast connections without
+        helping slow ones, pushes real-world LCP to 4&ndash;6s+, and the hero&rsquo;s entrance animations finish
+        <em>behind</em> the overlay &mdash; they are never seen.</p>
+        <p class="fix"><b>Fix</b>Gate on actual asset readiness capped &asymp;800ms, or make it first-visit-only via <code>sessionStorage</code>.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">727 KB</span><span class="metric-sub">one chunk</span></div>
+      <div class="body">
+        <h3>No code splitting; Supabase and dead react-query ship to every visitor</h3>
+        <p>All five routes statically imported, zero <code>React.lazy</code>. The build confirms one 727 KB chunk
+        (226 KB gz) &mdash; Vite prints the warning itself. <code>@tanstack/react-query</code> is instantiated in
+        <code>App.tsx</code>, yet zero <code>useQuery</code>/<code>useMutation</code> calls exist anywhere: ~13 KB gz of
+        dead provider.</p>
+        <p class="fix"><b>Fix</b>Lazy-load Perks (Supabase) and Fellows; delete react-query outright.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric mild">552 KB</span><span class="metric-sub">3 smaller items</span></div>
+      <div class="body">
+        <h3>Logos, images, fonts</h3>
+        <p><strong>552 KB of logos rendered at &le;48px</strong> (partner PNGs up to 800&times;800 shown at 28&ndash;40px;
+        resize + WebP &rarr; ~55 KB). The marquee renders 8 logos as <strong>72 permanently-animating DOM nodes</strong>
+        (2&times; duplication suffices; pause off-screen). <strong>Zero</strong> <code>width</code>/<code>height</code>,
+        <code>loading="lazy"</code> or <code>srcset</code> attributes exist on any image (CLS + eager downloads). Six
+        render-blocking font files; and <code>ApplyCTA</code> uses <code>font-serif</code> with no serif configured &mdash;
+        the envelope letter silently renders in Times.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACCESSIBILITY ============ -->
+  <section>
+    <div class="sechead"><h2>Accessibility</h2><span class="count">9 findings</span></div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">CRITICAL</span><span class="metric-sub">wcag 2.1.1</span></div>
+      <div class="body">
+        <h3>Hover-only flip cards exclude keyboard and touch users entirely</h3>
+        <p>The alumni card back &mdash; description and stage badge &mdash; is revealed only by <code>:hover</code> on a
+        plain <code>&lt;div&gt;</code>: no <code>tabindex</code>, no role, no key handler. Most of a marketing site&rsquo;s
+        audience is on mobile; they never see this content.</p>
+        <p class="fix"><b>Fix</b>Make the card a <code>&lt;button aria-expanded&gt;</code>; flip on focus and click as well as hover.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">CRITICAL</span><span class="metric-sub">orphan routes</span></div>
+      <div class="body">
+        <h3>Nothing links to /fellows or /perks &mdash; on any device</h3>
+        <p>Verified by grep: the two routes exist only in <code>App.tsx</code>. SideNav is <code>hidden md:flex</code>
+        (mobile has <em>zero</em> navigation UI) and only scrolls homepage sections anyway. Both pages are reachable
+        solely by typing the URL &mdash; which also makes them invisible to crawlers (see SEO).</p>
+        <p class="fix"><b>Fix</b>Real header/footer navigation, all breakpoints. The Footer currently holds only a mailto.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">wcag 2.3.3</span></div>
+      <div class="body">
+        <h3><code>prefers-reduced-motion</code> respected nowhere</h3>
+        <p>Zero hits across the codebase (verified): framer-motion on every section, three infinite marquees, flip
+        cards, the matrix loading screen, autoplaying video, smooth scroll.</p>
+        <p class="fix"><b>Fix</b><code>&lt;MotionConfig reducedMotion="user"&gt;</code> plus one CSS media block killing marquee/matrix animations and smooth scroll, and pausing the video.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">4 Hz flash</span></div>
+      <div class="body">
+        <h3>The loading screen flashes at 4&thinsp;Hz with no accessible semantics</h3>
+        <p><code>matrix-flicker</code> runs at 0.25s &mdash; four opacity flashes per second, above the 3-per-second
+        general-flash threshold (the small dark-red area mitigates, but on mobile the grid is a meaningful viewport
+        fraction). No <code>role="status"</code>/<code>aria-busy</code>; focus is not trapped, so keyboard users can Tab
+        into the hidden page underneath.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">4.00:1</span><span class="metric-sub">computed ratios</span></div>
+      <div class="body">
+        <h3>Contrast: white-on-red fails AA; two greys fail outright</h3>
+        <p><strong>White on red = 4.00:1</strong> &mdash; fails AA normal text; used on the 10px &ldquo;APPLY&rdquo;
+        seal and both primary buttons (darken to &asymp;<code>#E60000</code> or use near-black text).
+        <strong><code>muted-foreground/50</code> = 2.27:1</strong> (&ldquo;London, UK&rdquo;) and
+        <strong>placeholder at /60 = 2.78:1</strong> both fail. For the record: primary red on background =
+        <strong>4.95:1</strong> &mdash; passes AA, though pure red collapses for protanopia. Backers&rsquo; glass cards sit
+        on a photo &mdash; contrast unverifiable by design; give them an opaque ground.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric mild">MEDIUM</span><span class="metric-sub">4 smaller items</span></div>
+      <div class="body">
+        <h3>Cursor, nameless links, nesting, headings</h3>
+        <p><strong>Custom cursor forced on <code>*</code></strong> &mdash; links never show <code>pointer</code>, inputs
+        never show the I-beam, OS cursor-size settings are ignored (scope to <code>body</code>, restore interactive
+        cursors). <strong>Ten icon-only backer links with no <code>aria-label</code></strong> (Fellows does it correctly
+        &mdash; copy it). <strong>A <code>&lt;button&gt;</code> nested inside a <code>&lt;Link&gt;</code></strong> in the
+        envelope CTA &mdash; invalid HTML; make the seal a <code>&lt;span aria-hidden&gt;</code>. <strong>The home page
+        has no <code>&lt;h1&gt;</code></strong> (the brand is an img, the tagline a <code>&lt;p&gt;</code>); Fellows and
+        Perks skip h1&rarr;h3. Plus: Perks&rsquo; collapsible lacks <code>aria-controls</code>, the decorative video
+        isn&rsquo;t <code>aria-hidden</code>, and default focus rings are near-invisible on #0A0A0A.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SEO ============ -->
+  <section>
+    <div class="sechead"><h2>SEO</h2><span class="count">5 findings</span></div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric">HIGH</span><span class="metric-sub">crawlability</span></div>
+      <div class="body">
+        <h3>Client-only SPA behind a fake loading gate; two orphan pages</h3>
+        <p>The served HTML is an empty <code>&lt;div id="root"&gt;</code>; the 2.5s timer degrades the render snapshot
+        for Googlebot and real users alike, and non-Google crawlers (most AI and social crawlers) see nothing. With no
+        internal links and no sitemap, <code>/fellows</code> and <code>/perks</code> are effectively unindexable. The
+        site is fully static content &mdash; trivially prerenderable.</p>
+        <p class="fix"><b>Fix</b>Prerender all four routes (<code>vite-ssg</code> or a prerender plugin); add navigation + <code>sitemap.xml</code>.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="gutter"><span class="metric mild">MEDIUM</span><span class="metric-sub">3 smaller items</span></div>
+      <div class="body">
+        <h3>Meta, OG image, sitemap</h3>
+        <p><strong>One set of meta tags for all routes</strong> &mdash; no head management anywhere, so
+        <code>/apply</code>, <code>/fellows</code> and <code>/perks</code> all present the homepage title and description
+        in search results and shares; no canonical, no <code>og:url</code>. <strong>The OG image lives in the
+        site-builder&rsquo;s bucket</strong> (<code>gpt-engineer-file-uploads</code>) &mdash; not brand-controlled, can
+        vanish, and leaks the tool. <strong>No <code>sitemap.xml</code></strong>; robots.txt has no
+        <code>Sitemap:</code> line. The marquee also announces each partner logo up to 24 times to screen readers &mdash;
+        mark the rows <code>aria-hidden</code> with one visually-hidden partner list.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="plan">
+    <h2>If only five things get done</h2>
+    <p>Ranked by what actually costs Kickstart today.</p>
+    <ol class="steps">
+      <li><span class="eff">now</span><span class="what">Fix the apply funnel &mdash; embed the form or a mailto<small>The site&rsquo;s entire purpose currently dead-ends at href="#".</small></span></li>
+      <li><span class="eff">&frac12; day</span><span class="what">Cap the loading gate; compress the video and the background PNG<small>~8.9 MB &rarr; ~1.3 MB; LCP from 4&ndash;6s to well under 2.5s.</small></span></li>
+      <li><span class="eff">2 hrs</span><span class="what">Add real navigation on all breakpoints<small>Un-orphans /fellows and /perks for users and crawlers at once.</small></span></li>
+      <li><span class="eff">30 min</span><span class="what"><code>shouldCreateUser: false</code> + auth rate limiting; confirm email-confirmation is enforced<small>Closes the two real security gaps.</small></span></li>
+      <li><span class="eff">1 hr</span><span class="what">Fix the Perks sign-in race<small>The payoff moment of the magic-link flow currently hangs on a timing coin-flip.</small></span></li>
+    </ol>
+  </div>
+
+  <footer>
+    Deep scan of ortira/kickstart-manifesto (main, archive as supplied): four independent review passes<br>
+    (security, correctness, performance, accessibility/SEO), key claims cross-verified by grep and a real<br>
+    vite build / tsc / vitest / eslint run. 33 findings. Companion: the Duplication Ledger artifact.
+  </footer>
+
+</div>
